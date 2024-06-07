@@ -1,0 +1,20 @@
+<h1>Lists#show</h1>
+<p>Find me in app/views/lists/show.html.erb</p>
+
+<%= @list.name %>
+
+<ul>
+<% @bookmarks.each do |bookmark| %>
+  <li>
+  <%= bookmark.movie.title %> <%= bookmark.comment %> <%= link_to '🗑️', bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"} %>
+  </li>
+  <% end %>
+</ul>
+
+<%= link_to "back to Lists", lists_path %>
+
+<%= simple_form_for [@list, @bookmark] do |f| %>
+  <%= f.input :movie_id, collection: Movie.all %> <!-- # récupérer le movie -->
+  <%= f.input :comment %>
+  <%= f.submit %>
+<% end %>
